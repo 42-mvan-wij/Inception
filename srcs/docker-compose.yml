@@ -1,3 +1,56 @@
 services:
-  nginx:
-    build: ./requirements/nginx
+  # nginx:
+  #   build: ./requirements/nginx
+  #   container_name: nginx
+  #   depends_on:
+  #     - wordpress
+  #   restart: unless-stopped
+  #   volumes:
+  #     - wp-vol:/var/www/
+  #   ports:
+  #     # - "443:443"
+  #     - "80:80"
+  #   networks:
+  #     - default
+
+  # wordpress:
+  #   build: ./requirements/wordpress
+  #   container_name: wordpress
+  #   depends_on:
+  #     - mariadb
+  #   restart: unless-stopped
+  #   volumes:
+  #     - wp-vol:/var/www/
+  #   networks:
+  #     - default
+
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    restart: unless-stopped
+    volumes:
+      - db-vol:/var/lib/mysql
+    networks:
+      - default
+    environment:
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+
+networks:
+  default:
+    name: inception
+
+volumes:
+  db-vol:
+    driver_opts:
+      o: bind
+      type: none
+      device: ${VOLUME_DIR}/mariadb
+
+  wp-vol:
+    driver_opts:
+      o: bind
+      type: none
+      device: ${VOLUME_DIR}/wordpress
