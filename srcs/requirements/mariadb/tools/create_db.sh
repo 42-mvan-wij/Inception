@@ -39,5 +39,5 @@ fi
 
 touch "$HEALTHCHECK_FILE"
 
-echo "Running <$@>"
+echo "Running [$@]"
 exec "$@"

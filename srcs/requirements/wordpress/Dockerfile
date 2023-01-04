@@ -2,17 +2,18 @@ FROM debian:stable
 
 RUN apt-get update; \
 	apt-get upgrade -y; \
-	apt-get install -y php-fpm wget php-mysql
-
-RUN wget https://wordpress.org/wordpress-6.1.1.tar.gz; \
-	wget https://raw.githubusercontent.com/wp-cli/builds/3e345df698faea02d64baebcb2fa6fc523231494/phar/wp-cli-release.phar
+	apt-get install -y php-fpm php-mysql
 
 COPY conf/ /tmp/wordpress
 
-RUN tar xzf wordpress-6.1.1.tar.gz --directory /tmp/wordpress
+ADD https://wordpress.org/wordpress-6.1.1.tar.gz /tmp/wordpress/
+ADD https://raw.githubusercontent.com/wp-cli/builds/3e345df698faea02d64baebcb2fa6fc523231494/phar/wp-cli-release.phar /usr/bin/
+RUN chmod 777 /usr/bin/wp-cli-release.phar
 
 RUN mkdir -p /run/php
-RUN sed 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 0.0.0.0:9000/' -i /etc/php/7.4/fpm/pool.d/www.conf
+
+RUN sed 's/listen = .*/listen = wordpress:9000/' -i /etc/php/7.4/fpm/pool.d/www.conf
+RUN sed 's/;clear_env = no/clear_env = no/' -i /etc/php/7.4/fpm/pool.d/www.conf
 
 EXPOSE 9000
 
