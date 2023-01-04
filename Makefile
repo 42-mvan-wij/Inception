@@ -17,5 +17,13 @@ iclean:
 	docker rmi -f $$(docker images -qa) 2> /dev/null || exit 0
 
 fclean: clean iclean
+	docker builder prune
+
+re: down
+	sudo rm -rf ~/data
+	mkdir -p ~/data ~/data/mariadb ~/data/wordpress
+	$(MAKE) up
+
+rere: fclean re
 
 .PHONY: run up stop down clean iclean fclean

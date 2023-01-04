@@ -17,17 +17,19 @@ services:
     build: ./requirements/wordpress
     container_name: wordpress
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     restart: unless-stopped
     volumes:
       - wp-vol:/var/www/
     networks:
       - default
     environment:
-      MARIADB_DATABASE: ${MARIADB_DATABASE}
-      MARIADB_USER: ${MARIADB_USER}
-      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
-      MARIADB_HOST: ${MARIADB_HOST}
+      WP_DB_NAME: ${WP_DB_NAME}
+      WP_USER: ${WP_USER}
+      WP_PASSWORD: ${WP_PASSWORD}
+      WP_EMAIL: ${WP_EMAIL}
+      WP_DB_HOST: ${WP_DB_HOST}
       WP_AUTH_KEY: ${WP_AUTH_KEY}
       WP_SECURE_AUTH_KEY: ${WP_SECURE_AUTH_KEY}
       WP_LOGGED_IN_KEY: ${WP_LOGGED_IN_KEY}
@@ -46,9 +48,9 @@ services:
     networks:
       - default
     environment:
-      MARIADB_DATABASE: ${MARIADB_DATABASE}
-      MARIADB_USER: ${MARIADB_USER}
-      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_DATABASE: ${WP_DB_NAME}
+      MARIADB_USER: ${WP_USER}
+      MARIADB_PASSWORD: ${WP_PASSWORD}
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
 
 networks:
