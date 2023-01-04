@@ -13,16 +13,29 @@ services:
   #   networks:
   #     - default
 
-  # wordpress:
-  #   build: ./requirements/wordpress
-  #   container_name: wordpress
-  #   depends_on:
-  #     - mariadb
-  #   restart: unless-stopped
-  #   volumes:
-  #     - wp-vol:/var/www/
-  #   networks:
-  #     - default
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+    volumes:
+      - wp-vol:/var/www/
+    networks:
+      - default
+    environment:
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_HOST: ${MARIADB_HOST}
+      WP_AUTH_KEY: ${WP_AUTH_KEY}
+      WP_SECURE_AUTH_KEY: ${WP_SECURE_AUTH_KEY}
+      WP_LOGGED_IN_KEY: ${WP_LOGGED_IN_KEY}
+      WP_NONCE_KEY: ${WP_NONCE_KEY}
+      WP_AUTH_SALT: ${WP_AUTH_SALT}
+      WP_SECURE_AUTH_SALT: ${WP_SECURE_AUTH_SALT}
+      WP_LOGGED_IN_SALT: ${WP_LOGGED_IN_SALT}
+      WP_NONCE_SALT: ${WP_NONCE_SALT}
 
   mariadb:
     build: ./requirements/mariadb

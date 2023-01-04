@@ -3,8 +3,6 @@ PROJECT_DIR = srcs
 include $(PROJECT_DIR)/.env
 export $(shell sed 's/=.*//' $(PROJECT_DIR)/.env)
 
-$(info $(VOLUME_DIR))
-
 run up:
 	docker compose --project-directory $(PROJECT_DIR) up --build -d --remove-orphans
 
