@@ -1,17 +1,16 @@
 services:
-  # nginx:
-  #   build: ./requirements/nginx
-  #   container_name: nginx
-  #   depends_on:
-  #     - wordpress
-  #   restart: unless-stopped
-  #   volumes:
-  #     - wp-vol:/var/www/
-  #   ports:
-  #     # - "443:443"
-  #     - "80:80"
-  #   networks:
-  #     - default
+  nginx:
+    build: ./requirements/nginx
+    container_name: nginx
+    depends_on:
+      - wordpress
+    restart: unless-stopped
+    volumes:
+      - wp-vol:/var/www/
+    ports:
+      - "443:443"
+    networks:
+      - default
 
   wordpress:
     build: ./requirements/wordpress

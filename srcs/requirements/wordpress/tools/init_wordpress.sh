@@ -10,8 +10,7 @@ fi
 if [ ! -f /var/www/wordpress/wp-config.php ]; then
 	echo "Initializing wordpress"
 	cp /tmp/wordpress/wp-config.php /var/www/wordpress
-	wp-cli-release.phar core install --allow-root --title="Test title" --admin_name="$WP_USER" --admin_password="$WP_PASSWORD" --admin_email="$WP_EMAIL" --skip-email --path="/var/www/wordpress" --url="http://localhost/wordpress"
-	# FIXME: change to https
+	wp-cli-release.phar core install --allow-root --title="Test title" --admin_name="$WP_USER" --admin_password="$WP_PASSWORD" --admin_email="$WP_EMAIL" --skip-email --path="/var/www/wordpress" --url="https://localhost/wordpress"
 else
 	echo "Wordpress already initialized"
 fi
