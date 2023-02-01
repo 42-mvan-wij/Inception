@@ -61,10 +61,10 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: ${VOLUME_DIR}/mariadb
+      device: ${MARIADB_VOLUME}
 
   wp-vol:
     driver_opts:
       o: bind
       type: none
-      device: ${VOLUME_DIR}/wordpress
+      device: ${WORDPRESS_VOLUME}
