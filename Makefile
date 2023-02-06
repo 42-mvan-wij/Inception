@@ -36,6 +36,7 @@ ffclean: fclean
 
 re: down
 	$(SUDO) rm -rf $(VOLUME_DIR)
+	docker volume rm $$(docker volume ls -q) 2> /dev/null || exit 0
 	$(MAKE) up
 
 rere: fclean re

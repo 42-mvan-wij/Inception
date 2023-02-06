@@ -15,7 +15,7 @@ RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 ENV HEALTHCHECK_FILE=/usr/health
 
-HEALTHCHECK --interval=1s --retries=10 \
+HEALTHCHECK --interval=1s --retries=20 \
 	CMD test -e "$HEALTHCHECK_FILE"
 
 EXPOSE 3306
