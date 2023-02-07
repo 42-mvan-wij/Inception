@@ -11,6 +11,7 @@ if [ ! -f /var/www/wordpress/wp-config.php ]; then
 	echo "Initializing wordpress"
 	cp /tmp/wordpress/wp-config.php /var/www/wordpress
 	wp-cli-release.phar --allow-root --path="/var/www/wordpress" core install --title="Test title" --admin_name="$WP_ADMIN_NAME" --admin_password="$WP_ADMIN_PASSWORD" --admin_email="$WP_ADMIN_EMAIL" --skip-email --url="https://mvan-wij.42.fr/wordpress"
+	wp-cli-release.phar --allow-root --path="/var/www/wordpress" user create "$WP_USER_NAME" "$WP_USER_EMAIL" --role=contributor --user_pass="$WP_USER_PASSWORD"
 else
 	echo "Wordpress already initialized"
 fi
