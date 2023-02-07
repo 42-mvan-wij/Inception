@@ -11,6 +11,8 @@ services:
       - "443:443"
     networks:
       - default
+    env_file:
+      - .env
 
   wordpress:
     build: ./requirements/wordpress
@@ -23,20 +25,8 @@ services:
       - wp-vol:/var/www/
     networks:
       - default
-    environment:
-      WP_DB_NAME: ${WP_DB_NAME}
-      WP_USER: ${WP_USER}
-      WP_PASSWORD: ${WP_PASSWORD}
-      WP_EMAIL: ${WP_EMAIL}
-      WP_DB_HOST: ${WP_DB_HOST}
-      WP_AUTH_KEY: ${WP_AUTH_KEY}
-      WP_SECURE_AUTH_KEY: ${WP_SECURE_AUTH_KEY}
-      WP_LOGGED_IN_KEY: ${WP_LOGGED_IN_KEY}
-      WP_NONCE_KEY: ${WP_NONCE_KEY}
-      WP_AUTH_SALT: ${WP_AUTH_SALT}
-      WP_SECURE_AUTH_SALT: ${WP_SECURE_AUTH_SALT}
-      WP_LOGGED_IN_SALT: ${WP_LOGGED_IN_SALT}
-      WP_NONCE_SALT: ${WP_NONCE_SALT}
+    env_file:
+      - .env
 
   mariadb:
     build: ./requirements/mariadb
@@ -46,11 +36,8 @@ services:
       - db-vol:/var/lib/mysql
     networks:
       - default
-    environment:
-      MARIADB_DATABASE: ${WP_DB_NAME}
-      MARIADB_USER: ${WP_USER}
-      MARIADB_PASSWORD: ${WP_PASSWORD}
-      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+    env_file:
+      - .env
 
 networks:
   default:

@@ -11,15 +11,15 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 	mysql_install_db --basedir=/usr --datadir=/var/lib/mysql --user=mysql
 fi
 
-if [ ! -d "/var/lib/mysql/$MARIADB_DATABASE" ]; then
+if [ ! -d "/var/lib/mysql/$DB_NAME" ]; then
 
 	echo "Initializing $MARIDB_DATABASE database"
 
 	{
 		echo "FLUSH PRIVILEGES;" # load grant tables
-		echo "CREATE DATABASE IF NOT EXISTS $MARIADB_DATABASE;"
-		echo "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$MARIADB_ROOT_PASSWORD';"
-		echo "GRANT ALL ON $MARIADB_DATABASE.* TO '$MARIADB_USER'@'%' IDENTIFIED BY '$MARIADB_PASSWORD';"
+		echo "CREATE DATABASE IF NOT EXISTS $DB_NAME;"
+		echo "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$DB_ROOT_PASSWORD';"
+		echo "GRANT ALL ON $DB_NAME.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';"
 		echo "FLUSH PRIVILEGES;" # reload grant tables
 	} | mariadbd --bootstrap
 
