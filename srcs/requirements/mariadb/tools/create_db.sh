@@ -18,7 +18,7 @@ if [ ! -d "/var/lib/mysql/$DB_NAME" ]; then
 	{
 		echo "FLUSH PRIVILEGES;" # load grant tables
 		echo "CREATE DATABASE IF NOT EXISTS $DB_NAME;"
-		echo "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$DB_ROOT_PASSWORD';"
+		echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('$DB_ROOT_PASSWORD') WITH GRANT OPTION;"
 		echo "GRANT ALL ON $DB_NAME.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';"
 		echo "FLUSH PRIVILEGES;" # reload grant tables
 	} | mariadbd --bootstrap
