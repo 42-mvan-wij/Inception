@@ -1,8 +1,8 @@
 FROM debian:stable
 
-RUN apt-get update && apt-get upgrade -y
-
-RUN apt-get install -y nginx openssl
+RUN apt-get update; \
+	apt-get upgrade -y; \
+	apt-get install -y nginx openssl;
 
 COPY conf/ /tmp/nginx
 

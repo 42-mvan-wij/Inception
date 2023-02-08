@@ -29,6 +29,7 @@ iclean:
 
 fclean: clean iclean
 	docker builder prune
+	docker network rm $$(docker network ls -q) 2> /dev/null || exit 0
 
 ffclean: fclean
 	$(SUDO) rm -rf $(VOLUME_DIR)
